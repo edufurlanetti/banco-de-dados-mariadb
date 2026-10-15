@@ -1,0 +1,16 @@
+services:
+  mariadb:
+    image: mariadb:11.4
+    container_name: almoxarifado-mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./scripts/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./scripts/02_procedures.sql:/docker-entrypoint-initdb.d/02_procedures.sql
+      - ./scripts/03_dados.sql:/docker-entrypoint-initdb.d/03_dados.sql
+      - mariadb_data:/var/lib/mysql
+
+volumes:
+  mariadb_data:
